@@ -5,12 +5,8 @@ declare global {
   }
 }
 
-type Payload = {
-  subscription: 'month' | 'year';
-  carousel: string;
-};
 
-export const sendDataToGA = async (payload: Payload) => {
+export const sendDataToGA = async () => {
   try {
     const now = new Date();
     const date = `${now.getFullYear()}-${
@@ -18,11 +14,11 @@ export const sendDataToGA = async (payload: Payload) => {
     }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
     await fetch(
-      'https://script.google.com/macros/s/AKfycbwKH_A70SmgSFyacS9XFhED1YEu72tg4xvMDFKJJph1hhx-RjzLfxDGBkFsO287FOJHCA/exec',
+      'https://script.google.com/macros/s/AKfycbyACArahNbGrNov9to8mj9izuMaL30u1dMOTa9RGvbkM1yIx_qDnq4myBjkLoPz2DDWkA/exec',
       {
         redirect: 'follow',
         method: 'POST',
-        body: JSON.stringify({ date, ...payload, variant: '1' }),
+        body: JSON.stringify({ date, variant: '3' }),
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },

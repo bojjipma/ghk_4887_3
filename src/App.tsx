@@ -17,7 +17,6 @@ export const App = () => {
   const [loading, setLoading] = useState(false);
   const [showBs, setShowBs] = useState(false);
   const [thxShow, setThx] = useState(LS.getItem(LSKeys.ShowThx, false));
-  const [selected, _] = useState('На 1 месяц');
 
   useEffect(() => {
     if (!LS.getItem(LSKeys.UserId, null)) {
@@ -28,11 +27,8 @@ export const App = () => {
   const submit = () => {
     setLoading(true);
 
-    sendDataToGA({
-      carousel: '',
-      subscription: selected === 'На 1 месяц' ? 'month' : 'year',
-    }).then(() => {
-      // LS.setItem(LSKeys.ShowThx, true);
+    sendDataToGA().then(() => {
+      LS.setItem(LSKeys.ShowThx, true);
       setThx(true);
       setLoading(false);
     });
@@ -104,13 +100,14 @@ export const App = () => {
           size={72}
           onClick={submit}
           hint={<Typography.Text color="static-secondary-light" view={"primary-medium"}>
-          При остатке на счетах от* 2 млн ₽
+          При остатке на счетах от* 6 млн ₽
         </Typography.Text>}
         >
           <b>Подключить за 0 ₽ в мес.</b>
         </ButtonMobile>
         <Typography.Text tag="div" color="tertiary" view="secondary-large" style={{marginTop: '1rem',textAlign:'center', padding: "0 16px"}}>
-          * При остатке от 3 000 000₽ или от 2 000 000₽ и трат по картам от 200 000 ₽ в месяц
+          * При остатке на счетах в Альфа-банке
+          от 6 000 000 ₽
         </Typography.Text>
       </div>
 
